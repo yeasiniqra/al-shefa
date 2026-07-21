@@ -1,0 +1,18 @@
+{
+  "name": "al-shefa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p 8088"
+  },
+  "dependencies": {
+    "lucide-react": "^1.25.0",
+    "next": "16.2.10",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "typed.js": "^3.0.0",
+    "zustand": "^5.0.14"
+  }
+}
