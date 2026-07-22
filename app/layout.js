@@ -1,5 +1,6 @@
 import { Poppins } from "next/font/google";
 import Header from "@/components/layout/Header/Header";
+import CategoryNav from "@/components/layout/CategoryNav/CategoryNav";
 import "./globals.css";
 import "./responsive.css"
 
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={poppins.variable}>
       <body>
         <Header />
+        <CategoryNav />
         {children}
       </body>
     </html>

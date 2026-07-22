@@ -435,3 +435,455 @@ a {
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
+/* =========================================================
+   CATEGORY NAV (slider + flyout mega-menu)
+   ========================================================= */
+
+.category-nav {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  z-index: 40;
+}
+
+/* ---------- Desktop: horizontal slider + hover flyouts ---------- */
+
+.category-nav__desktop {
+  display: none;
+}
+
+@media (min-width: 1025px) {
+  .category-nav__desktop {
+    display: block;
+  }
+}
+
+.category-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 40px; /* room for the arrow buttons */
+}
+
+/* The Splide track clips off-screen slides (overflow: hidden, from Splide's
+   core CSS). The hover flyout is deliberately rendered OUTSIDE this track —
+   see .category-flyout-portal — so the track's clipping can never cut off
+   the dropdown. */
+.category-slider__splide {
+  flex: 1;
+  min-width: 0;
+  padding: 0 4px;
+}
+
+.category-slider__splide .splide__list {
+  align-items: center;
+}
+
+.category-slider__item {
+  position: relative;
+}
+
+.category-slider__link {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 2px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.category-slider__link:hover,
+.category-slider__link.is-active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.category-slider__item--viewall {
+  margin-left: 4px;
+}
+
+.category-slider__viewall {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.category-slider__viewall:hover {
+  background: var(--brand-green-light);
+  color: var(--color-text-inverse);
+}
+
+.category-slider__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  color: var(--color-text);
+  cursor: pointer;
+  z-index: 20;
+  transition: opacity 0.15s ease;
+}
+
+.category-slider__arrow.is-hidden {
+  display: none;
+}
+
+.category-slider__arrow:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.category-slider__arrow--left {
+  left: 0;
+}
+
+.category-slider__arrow--right {
+  right: 0;
+}
+
+/* ---------- Flyout (recursive: level-2, level-3, ...) ---------- */
+
+/* Wrapper for the flyout, rendered as a sibling of the slider (NOT inside a
+   slide) so it escapes the track's overflow clipping. `left` is set inline
+   from JS to sit under the hovered top-level item; `top: 100%` drops it just
+   below the category bar. */
+.category-flyout-portal {
+  position: absolute;
+  top: 100%;
+  z-index: 60;
+}
+
+/* The level-2 flyout normally positions itself (absolute, top:100%/left:0).
+   Inside the portal, the portal already handles positioning, so neutralise
+   it and let it sit at the portal's origin. Deeper levels (3, 4, …) keep
+   their own left:100% fan-out. */
+.category-flyout-portal > .category-flyout {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.category-flyout {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 240px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.14);
+  padding: 8px;
+}
+
+.category-flyout--level-3,
+.category-flyout--level-4 {
+  top: 100%;
+  left: 100%;
+  margin-left: 6px;
+}
+
+.category-flyout__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-flyout__item {
+  position: relative;
+}
+
+.category-flyout__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.category-flyout__link:hover {
+  background: var(--color-surface-muted);
+  color: var(--color-primary);
+}
+
+.category-flyout__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  color: var(--color-primary);
+}
+
+.category-flyout__link:hover .category-flyout__icon {
+  background: var(--brand-green-light);
+  color: var(--color-text-inverse);
+}
+
+.category-flyout__label {
+  flex: 1;
+}
+
+.category-flyout__chevron {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* ---------- Mobile: flat icon tiles, top-level only ---------- */
+
+.category-nav__mobile {
+  display: block;
+}
+
+@media (min-width: 1025px) {
+  .category-nav__mobile {
+    display: none;
+  }
+}
+
+.category-grid {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 14px 16px;
+}
+
+.category-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.category-grid__item {
+  flex-shrink: 0;
+}
+
+.category-grid__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 74px;
+  text-align: center;
+}
+
+.category-grid__icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
+  border: 1.5px solid var(--brand-green-light);
+  color: var(--color-primary);
+}
+
+.category-grid__label {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+/* =========================================================
+   HOME BANNER SLIDER (Splide)
+   ========================================================= */
+
+.banner {
+  padding: 16px 0;
+  background: var(--color-surface);
+}
+
+.banner__slider {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.banner__img-wrap {
+  display: block;
+  line-height: 0;
+}
+
+.banner__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ---- Splide arrows (branded) ---- */
+.banner__slider .splide__arrow {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.banner__slider .splide__arrow:hover {
+  opacity: 1;
+  background: #ffffff;
+}
+
+.banner__slider .splide__arrow svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--color-primary);
+}
+
+.banner__slider .splide__arrow--prev {
+  left: 12px;
+}
+
+.banner__slider .splide__arrow--next {
+  right: 12px;
+}
+
+/* ---- Splide pagination dots (branded) ---- */
+.banner__slider .splide__pagination {
+  bottom: 10px;
+  gap: 2px;
+}
+
+.banner__slider .splide__pagination__page {
+  width: 8px;
+  height: 8px;
+  margin: 0 4px;
+  background: rgba(255, 255, 255, 0.75);
+  opacity: 0.9;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.banner__slider .splide__pagination__page.is-active {
+  background: var(--color-primary);
+  transform: scale(1.4);
+  opacity: 1;
+}
+
+/* Hide arrows on small screens (dots + swipe are enough) */
+@media (max-width: 640px) {
+  .banner__slider .splide__arrow {
+    display: none;
+  }
+}
+
+
+
+
+/* =========================================================
+   REUSABLE SECTION TITLE
+   ========================================================= */
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 0 22px;
+}
+.section-title__line { height: 1px; width: 48px; background: var(--color-border); }
+.section-title__leaf { display: flex; color: var(--brand-green-mid); flex-shrink: 0; }
+.section-title__text {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+  white-space: nowrap;
+}
+@media (max-width: 520px) {
+  .section-title__line { width: 24px; }
+  .section-title__text { font-size: 18px; }
+}
+
+/* =========================================================
+   ESPECIALLY FOR YOU (dynamic offer boxes)
+   ========================================================= */
+.efy { padding: 32px 0; background: var(--color-surface); }
+.efy__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--efy-cols, 4), minmax(0, 1fr));
+  gap: 16px;
+}
+@media (max-width: 1024px) { .efy__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 680px)  { .efy__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.offer-card {
+  --offer-color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  color: inherit;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+.offer-card:hover {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--offer-color) 35%, var(--color-border));
+}
+.offer-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.offer-card__text { display: flex; flex-direction: column; min-width: 0; }
+.offer-card__label { font-size: 13px; font-weight: 500; color: var(--color-text-muted); line-height: 1.3; }
+.offer-card__title { font-size: 18px; font-weight: 700; color: var(--color-text); line-height: 1.25; }
+.offer-card__subtitle { margin-top: 4px; font-size: 13px; color: var(--color-text-muted); }
+.offer-card__icon {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--offer-color);
+  color: #ffffff;
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--offer-color) 40%, transparent);
+}
+.offer-card__btn {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 12px;
+  border: 1.5px solid var(--offer-color);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--offer-color);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.offer-card:hover .offer-card__btn { 
+  background: var(--offer-color); 
+  color: #ffffff;
+}

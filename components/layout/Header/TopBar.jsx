@@ -16,9 +16,9 @@ export default function TopBar({
             +8801712-691258
           </a>
           <span className="topbar__divider" aria-hidden="true" />
-          <a href='mailto:alshefa@gmail.com' className="topbar__link">
+          <a href='mailto:ecom@alshefa.com.bd' className="topbar__link">
             <Mail size={16} />
-            alshefa@gmail.com
+           ecom@alshefa.com.bd
           </a>
         </div>
       </div>
