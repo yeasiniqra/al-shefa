@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import CategoryFlyout from "./CategoryFlyout";
 
 import "@splidejs/splide/css/core";
+import { CategoryIcon } from "@/components/ui/CategoryIcon";
 
 /**
  * Desktop category bar.
@@ -129,6 +130,9 @@ export default function CategorySliderDesktop({ categories = [] }) {
                         flyout?.id === cat.id ? " is-active" : ""
                       }`}
                     >
+                     <span className="category-flyout__icon">
+                        <CategoryIcon name={cat.iconImage} size={16} />
+                      </span>
                       {cat.name}
                     </Link>
                   </li>

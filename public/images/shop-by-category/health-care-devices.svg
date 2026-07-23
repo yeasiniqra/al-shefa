@@ -1,0 +1,14 @@
+<svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="220" rx="14" fill="#F3F7F2"/>
+  <ellipse cx="150" cy="185" rx="90" ry="10" fill="#E3ECE1"/>
+  <!-- monitor body -->
+  <rect x="105" y="65" width="90" height="80" rx="12" fill="#FFFFFF" stroke="#D8E2D6" stroke-width="2"/>
+  <rect x="118" y="78" width="64" height="34" rx="4" fill="#12194D"/>
+  <text x="150" y="101" font-family="monospace" font-size="18" fill="#8BC34A" text-anchor="middle">120</text>
+  <circle cx="127" cy="128" r="6" fill="#1F7A3D"/>
+  <circle cx="150" cy="128" r="6" fill="#D8E2D6"/>
+  <circle cx="173" cy="128" r="6" fill="#D8E2D6"/>
+  <!-- cuff -->
+  <path d="M95 160 q55 -30 110 0 q4 20 -20 28 q-35 14 -70 0 q-24 -8 -20 -28z" fill="#1F7A3D" opacity="0.85"/>
+  <rect x="140" y="150" width="20" height="14" rx="3" fill="#12194D"/>
+</svg>

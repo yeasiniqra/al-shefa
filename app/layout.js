@@ -32,7 +32,9 @@ export default function RootLayout({ children }) {
       <body>
         <Header />
         <CategoryNav />
+        <main>
         {children}
+        </main>
       </body>
     </html>
   );
