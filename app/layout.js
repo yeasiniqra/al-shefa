@@ -1,6 +1,7 @@
 import { Poppins } from "next/font/google";
 import Header from "@/components/layout/Header/Header";
 import CategoryNav from "@/components/layout/CategoryNav/CategoryNav";
+import Footer from "@/components/layout/Footer/Footer";
 import "./globals.css";
 import "./responsive.css"
 
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
         <main>
         {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
